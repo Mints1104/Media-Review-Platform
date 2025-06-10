@@ -1,7 +1,11 @@
 require('dotenv').config(); // Load environment variables from .env file
+const connectDB = require('./config/db');
+
+connectDB();
 
 const express = require('express');
 const app = express();
+
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
