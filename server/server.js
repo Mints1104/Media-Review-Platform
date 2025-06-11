@@ -10,6 +10,11 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 
+//Routes
+app.use('/api/users', require('./routes/userRoutes'));
+
+
+
 app.get('/',(req,res) => {
     res.send('API is running...');
 });
