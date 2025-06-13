@@ -38,6 +38,52 @@ const getReviews = asyncHandler(async (req, res) => {
     res.status(200).json(reviews);
 });
 
+// @desc Get single review by ID
+// @route GET /api/reviews/:id
+// @access Public
+
+const getReviewById = asyncHandler(async (req,res) => {
+    const review = await Review.findById(req.params.id);
+
+    if(review) {
+        res.status(200).json(review);
+    } else {
+        res.status(404);
+        throw new Error('Review not found');
+        }
+});
+
+//@desc Update a review
+//@route PUT /api/reviews/:id
+//@access Private
+
+const updateReview = asyncHandler(async (req,res) => {
+    const {mediaTitle, mediaType, rating,reviewText} = req.body;
+    const review = await Review.findById(req.params.id);
+
+    if(!review) {
+        res.status(404);
+        throw new Error('Review not found');
+    }
+
+    if(review.user.toString() !== req.user._id.toString()) {
+        res.status(401);
+        throw new Error('Not authorized to update this review');
+    }
+
+    //Update fields if provided in the request body
+
+    review.mediaTitle = mediaTitle || review.mediaTitle;
+    review.mediaType = mediaType || review.mediaType;
+    review.rating = rating || review.rating;
+    review.reviewText = reviewText || review.reviewText;
+
+    const updatedReview = await review.save();
+    res.status(200).json(updatedReview)
+})
+
+
+
 // @desc    Delete a review
 // @route   DELETE /api/reviews/:id
 // @access  Private
@@ -64,5 +110,7 @@ const deleteReview = asyncHandler(async (req, res) => {
 module.exports = {
     createReview,
     getReviews,
-    deleteReview
+    deleteReview,
+    getReviewById,
+    updateReview,
 };
