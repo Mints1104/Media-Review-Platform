@@ -1,5 +1,6 @@
 require('dotenv').config(); // Load environment variables from .env file
 const connectDB = require('./config/db');
+const { notFound, errorHandler } = require('./middleware/errorMiddleware'); // Import new middleware
 
 connectDB();
 
@@ -19,6 +20,9 @@ app.use('/api/reviews', require('./routes/reviewRoutes'));
 app.get('/',(req,res) => {
     res.send('API is running...');
 });
+
+app.use(notFound);
+app.use(errorHandler);
 
 //Start the server
 app.listen(PORT, () => {
