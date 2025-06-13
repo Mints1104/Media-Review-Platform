@@ -1,4 +1,7 @@
+// client/src/pages/Login.jsx
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import authService from '../services/authService';
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -8,6 +11,8 @@ function Login() {
 
   const { email, password } = formData;
 
+  const navigate = useNavigate();
+
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -15,9 +20,27 @@ function Login() {
     }));
   };
 
-  const onSubmit = (e) => {
+  // client/src/pages/Login.jsx (inside onSubmit)
+const onSubmit = async (e) => {
     e.preventDefault();
-    console.log('Logging in user:', formData); 
+  
+    const userData = {
+      email,
+      password,
+    };
+  
+    try {
+      const user = await authService.login(userData);
+      console.log('User logged in:', user);
+      navigate('/');
+    } catch (error) {
+      // --- CHANGE THIS LINE ---
+      const errorMessage = error.response && error.response.data && error.response.data.message
+                             ? error.response.data.message
+                             : error.message;
+      console.error('Login failed:', errorMessage);
+      // Display error to the user
+    }
   };
 
   return (
@@ -34,6 +57,7 @@ function Login() {
             value={email}
             placeholder="Enter your email"
             onChange={onChange}
+            required
           />
         </div>
         <div className="form-group">
@@ -45,6 +69,7 @@ function Login() {
             value={password}
             placeholder="Enter password"
             onChange={onChange}
+            required
           />
         </div>
         <div className="form-group">
