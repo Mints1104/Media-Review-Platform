@@ -8,8 +8,19 @@ const getReviews = async () => {
     return response.data;
 };
 
+const createReview = async(reviewData, token) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+    const response = await axios.post(API_URL, reviewData, config);
+    return response.data;
+};
+
 const reviewService = {
     getReviews,
+    createReview,
 };
 
 export default reviewService;

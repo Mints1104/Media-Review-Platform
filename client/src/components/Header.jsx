@@ -20,12 +20,20 @@ function Header() {
                 {user ? (
                     <>
                         <li>
+                            <Link to="/create-review">Create Review</Link>
+                        </li>
+                        <li>
                             <Link to="/profile">Welcome {user.username}</Link>
                         </li>
                         <li>
-                            <button className="btn" onClick={onLogout}>Logout</button>
+                            <button className="btn" onClick={onLogout}>
+                                Logout
+                            </button>
                         </li>
+
                     </>
+
+
                 ) : (
                     <>
                         <li>

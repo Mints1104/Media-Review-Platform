@@ -1,6 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const Review = require('../models/Review');
-const User = require('../models/User'); // Just in case we need user data in controllers
+const User = require('../models/User'); 
 
 // @desc    Create a new review
 // @route   POST /api/reviews
@@ -34,7 +34,7 @@ const createReview = asyncHandler(async (req, res) => {
 // @route   GET /api/reviews
 // @access  Public
 const getReviews = asyncHandler(async (req, res) => {
-    const reviews = await Review.find({}); // Get all reviews
+    const reviews = await Review.find({}).populate('user', 'username'); // Get all reviews
     res.status(200).json(reviews);
 });
 
@@ -43,7 +43,7 @@ const getReviews = asyncHandler(async (req, res) => {
 // @access Public
 
 const getReviewById = asyncHandler(async (req,res) => {
-    const review = await Review.findById(req.params.id);
+    const review = await Review.findById(req.params.id).populate('user', 'username');
 
     if(review) {
         res.status(200).json(review);
@@ -91,7 +91,7 @@ const deleteReview = asyncHandler(async (req, res) => {
     const review = await Review.findById(req.params.id);
 
     if (!review) {
-        res.status(404); // Not Found
+        res.status(404); 
         throw new Error('Review not found');
     }
 
@@ -99,7 +99,7 @@ const deleteReview = asyncHandler(async (req, res) => {
     // review.user is an ObjectId, req.user._id is also an ObjectId
     // We need to convert both to strings for a proper comparison
     if (review.user.toString() !== req.user._id.toString()) {
-        res.status(401); // Unauthorized
+        res.status(401); 
         throw new Error('Not authorized to delete this review');
     }
 
