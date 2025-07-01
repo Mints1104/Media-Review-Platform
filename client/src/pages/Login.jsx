@@ -1,7 +1,6 @@
-// client/src/pages/Login.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import authService from '../services/authService';
+import { useAuth } from '../context/AuthContext.jsx';
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -12,6 +11,7 @@ function Login() {
   const { email, password } = formData;
 
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -20,26 +20,23 @@ function Login() {
     }));
   };
 
-  // client/src/pages/Login.jsx (inside onSubmit)
-const onSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-  
+
     const userData = {
       email,
       password,
     };
-  
+
     try {
-      const user = await authService.login(userData);
+      const user = await login(userData);
       console.log('User logged in:', user);
       navigate('/');
     } catch (error) {
-      // --- CHANGE THIS LINE ---
       const errorMessage = error.response && error.response.data && error.response.data.message
-                             ? error.response.data.message
-                             : error.message;
+        ? error.response.data.message
+        : error.message;
       console.error('Login failed:', errorMessage);
-      // Display error to the user
     }
   };
 

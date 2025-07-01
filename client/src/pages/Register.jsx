@@ -1,17 +1,19 @@
-// client/src/pages/Register.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import authService from '../services/authService';
+import { useAuth } from '../context/AuthContext.jsx';
 
 function Register() {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
-    password2: '', // For password confirmation
+    password2: '',
   });
 
   const { username, email, password, password2 } = formData;
+  const navigate = useNavigate();
+  const { register } = useAuth();
+
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -20,9 +22,9 @@ function Register() {
     }));
   };
 
-  // client/src/pages/Register.jsx (inside onSubmit)
-const onSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
+
     if (password !== password2) {
       console.log('Passwords do not match');
     } else {
@@ -31,18 +33,16 @@ const onSubmit = async (e) => {
         email,
         password,
       };
-  
+
       try {
-        const user = await authService.register(userData);
+        const user = await register(userData);
         console.log('User registered:', user);
         navigate('/login');
       } catch (error) {
-        // --- CHANGE THIS LINE ---
         const errorMessage = error.response && error.response.data && error.response.data.message
-                             ? error.response.data.message
-                             : error.message; // Fallback to general error message
+          ? error.response.data.message
+          : error.message;
         console.error('Registration failed:', errorMessage);
-        // You'll display this error message in the UI later
       }
     }
   };
