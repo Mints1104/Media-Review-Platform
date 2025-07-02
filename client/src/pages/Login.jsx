@@ -7,6 +7,7 @@ function Login() {
     email: '',
     password: '',
   });
+  const [error, setError] = useState('');
 
   const { email, password } = formData;
 
@@ -31,11 +32,13 @@ function Login() {
     try {
       const user = await login(userData);
       console.log('User logged in:', user);
+      setError('');
       navigate('/');
     } catch (error) {
       const errorMessage = error.response && error.response.data && error.response.data.message
         ? error.response.data.message
         : error.message;
+      setError(errorMessage);
       console.error('Login failed:', errorMessage);
     }
   };
@@ -44,6 +47,7 @@ function Login() {
     <div>
       <h1>Login</h1>
       <p>Login to your account</p>
+      {error && <div className="error-message" style={{ color: 'red', marginBottom: '1rem' }}>{error}</div>}
       <form onSubmit={onSubmit}>
         <div className="form-group">
           <input

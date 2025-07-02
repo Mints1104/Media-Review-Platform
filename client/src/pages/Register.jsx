@@ -9,6 +9,7 @@ function Register() {
     password: '',
     password2: '',
   });
+  const [error, setError] = useState('');
 
   const { username, email, password, password2 } = formData;
   const navigate = useNavigate();
@@ -24,16 +25,16 @@ function Register() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
     if (password !== password2) {
-      console.log('Passwords do not match');
+      setError('Passwords do not match');
+      return;
     } else {
+      setError('');
       const userData = {
         username,
         email,
         password,
       };
-
       try {
         const user = await register(userData);
         console.log('User registered:', user);
@@ -42,6 +43,7 @@ function Register() {
         const errorMessage = error.response && error.response.data && error.response.data.message
           ? error.response.data.message
           : error.message;
+        setError(errorMessage);
         console.error('Registration failed:', errorMessage);
       }
     }
@@ -51,6 +53,7 @@ function Register() {
     <div>
       <h1>Register</h1>
       <p>Please create an account</p>
+      {error && <div className="error-message" style={{ color: 'red', marginBottom: '1rem' }}>{error}</div>}
       <form onSubmit={onSubmit}>
         <div className="form-group">
           <input

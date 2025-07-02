@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import CreateReview from './pages/CreateReview';
 import Header from './components/Header';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
@@ -16,7 +17,11 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/create-review" element={<CreateReview />} />
+
+          <Route element={<PrivateRoute />}>
+            <Route path="/create-review" element={<CreateReview />} />
+          </Route>
+
         </Routes>
       </div>
     </>

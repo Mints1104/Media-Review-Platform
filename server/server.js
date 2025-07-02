@@ -1,6 +1,6 @@
-require('dotenv').config(); // Load environment variables from .env file
+require('dotenv').config(); 
 const connectDB = require('./config/db');
-const { notFound, errorHandler } = require('./middleware/errorMiddleware'); // Import new middleware
+const { notFound, errorHandler } = require('./middleware/errorMiddleware'); 
 
 connectDB();
 
