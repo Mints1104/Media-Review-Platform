@@ -9,12 +9,12 @@ function Register() {
     password: '',
     password2: '',
   });
-  const [error, setError] = useState('');
 
   const { username, email, password, password2 } = formData;
   const navigate = useNavigate();
   const { register } = useAuth();
-
+  const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -25,24 +25,23 @@ function Register() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
     if (password !== password2) {
       setError('Passwords do not match');
       return;
     } else {
-      setError('');
       const userData = {
         username,
         email,
         password,
       };
+
       try {
         const user = await register(userData);
         console.log('User registered:', user);
-        navigate('/login');
+        navigate('/');
       } catch (error) {
-        const errorMessage = error.response && error.response.data && error.response.data.message
-          ? error.response.data.message
-          : error.message;
+        const errorMessage = error.message || 'Registration failed';
         setError(errorMessage);
         console.error('Registration failed:', errorMessage);
       }
@@ -81,7 +80,7 @@ function Register() {
         </div>
         <div className="form-group">
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             className="form-control"
             id="password"
             name="password"
@@ -93,7 +92,7 @@ function Register() {
         </div>
         <div className="form-group">
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             className="form-control"
             id="password2"
             name="password2"
@@ -103,9 +102,20 @@ function Register() {
             required
           />
         </div>
+        <div className="form-group" style={{ marginBottom: '1rem' }}>
+          <input
+            type="checkbox"
+            id="showPassword"
+            checked={showPassword}
+            onChange={() => setShowPassword((prev) => !prev)}
+          />
+          <label htmlFor="showPassword" style={{ marginLeft: '0.5rem' }}>
+            Show Password
+          </label>
+        </div>
         <div className="form-group">
           <button type="submit" className="btn btn-block">
-            Submit
+            Register
           </button>
         </div>
       </form>
