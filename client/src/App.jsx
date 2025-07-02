@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import CreateReview from './pages/CreateReview';
 import Header from './components/Header';
 import PrivateRoute from './components/PrivateRoute';
+import EditReview from './pages/EditReview';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
 
           <Route element={<PrivateRoute />}>
             <Route path="/create-review" element={<CreateReview />} />
+            <Route path="/edit-review/:id" element={<EditReview />} />
           </Route>
 
         </Routes>
