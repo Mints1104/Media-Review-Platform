@@ -18,9 +18,20 @@ const createReview = async(reviewData, token) => {
     return response.data;
 };
 
+const deleteReview = async(reviewId, token) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        };
+        const response = await axios.delete(API_URL + reviewId, config);
+        return response.data;
+    };
+
 const reviewService = {
     getReviews,
     createReview,
+    deleteReview,
 };
 
 export default reviewService;
