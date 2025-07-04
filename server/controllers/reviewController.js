@@ -38,6 +38,15 @@ const getReviews = asyncHandler(async (req, res) => {
     res.status(200).json(reviews);
 });
 
+//@desc Get reviews for logged-in user
+//@route GET /api/reviews/myreviews
+//@access Private
+const getMyReviews = asyncHandler(async (req,res) => {
+    //Find reviews where the 'user' field matches the logged in user's ID
+    const reviews = await Review.find({user: req.user._id}).populate('user', 'username');
+    res.status(200).json(reviews);
+});
+
 // @desc Get single review by ID
 // @route GET /api/reviews/:id
 // @access Public
@@ -113,4 +122,5 @@ module.exports = {
     deleteReview,
     getReviewById,
     updateReview,
+    getMyReviews,
 };

@@ -3,12 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 
 function Header() {
-    const { user, logout } = useAuth(); // Get user state and logout function from context
+    const { user, logout } = useAuth();
     const navigate = useNavigate();
 
     const onLogout = () => {
-        logout(); // Call logout from context
-        navigate('/login'); // Redirect to login page after logout
+        logout();
+        navigate('/login');
     };
 
     return (
@@ -22,6 +22,11 @@ function Header() {
                         <li>
                             <Link to="/create-review">Create Review</Link>
                         </li>
+
+                        <li>
+                            <Link to="/my-reviews">My Reviews</Link>
+                        </li>
+
                         <li>
                             <Link to="/profile">Welcome {user.username}</Link>
                         </li>

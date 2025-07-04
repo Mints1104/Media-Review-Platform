@@ -13,6 +13,16 @@ const getReviewById = async(reviewId) => {
     return response.data;
 };
 
+const getMyReviews = async(token) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+    const response = await axios.get(API_URL + 'myreviews', config);
+    return response.data;
+};
+
 const createReview = async(reviewData, token) => {
     const config = {
         headers: {
@@ -49,6 +59,7 @@ const reviewService = {
     createReview,
     updateReview,
     deleteReview,
+    getMyReviews,
 };
 
 export default reviewService;
