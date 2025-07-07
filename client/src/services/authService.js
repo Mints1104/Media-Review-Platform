@@ -1,7 +1,6 @@
 import axios from 'axios';
-import API_BASE_URL from './api'; // Import the base URL
+import API_BASE_URL from './api'; 
 const USER_API_URL = `${API_BASE_URL}/api/users/`; 
-//Register user
 
 const register = async(userData) => {
   try {
@@ -15,7 +14,6 @@ const register = async(userData) => {
   }
 };
 
-//Login user
 
 const login = async(userData) => {
   try {
@@ -29,7 +27,6 @@ const login = async(userData) => {
   }
 };
 
-//Logout user
 const logout = () => {
   localStorage.removeItem('user');
 };

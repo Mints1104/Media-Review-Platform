@@ -1,4 +1,3 @@
-// client/src/pages/Home.jsx
 import React, { useEffect, useState, useCallback } from 'react';
 import reviewService from '../services/reviewService';
 import { useAuth } from '../context/AuthContext';
