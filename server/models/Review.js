@@ -14,7 +14,7 @@ const reviewSchema = mongoose.Schema(
         mediaType: {
             type: String,
             required: true,
-            enum: ['Game','Anime','Manga','Light Novel']
+            enum: ['Game','Anime','Manga','Light Novel','Movie','TV Show','Book','Other']
         },
         rating: {
             type: Number,

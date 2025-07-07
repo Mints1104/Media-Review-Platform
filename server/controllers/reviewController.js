@@ -30,12 +30,29 @@ const createReview = asyncHandler(async (req, res) => {
     res.status(201).json(review);
 });
 
-// @desc    Get all reviews
+// @desc    Get all reviews (with optional search and filter)
 // @route   GET /api/reviews
 // @access  Public
 const getReviews = asyncHandler(async (req, res) => {
-    const reviews = await Review.find({}).populate('user', 'username'); // Get all reviews
+    const keyword = req.query.keyword? {
+        mediaTitle: {
+            $regex: req.query.keyword, // regex is used to search for keyword in  mediaTitle field
+            $options: 'i',
+        },
+    } : {}; // if no keyword, then no filter
+
+    const mediaType = req.query.mediaType? {
+        mediaType: req.query.mediaType
+    }: {};
+    const rating = req.query.rating? {
+        rating: {$gte : Number(req.query.rating)} // filter by min rating (gte = greater than or equal to)
+    }: {};
+    const filters = {...keyword,...mediaType,...rating};
+    //find reviews based on combined filters
+
+    const reviews = await Review.find(filters).populate('user', 'username');
     res.status(200).json(reviews);
+    
 });
 
 //@desc Get reviews for logged-in user

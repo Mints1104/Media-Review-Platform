@@ -3,8 +3,11 @@ import axios from 'axios';
 const API_URL = '/api/reviews/';
 
 //Get all reviews
-const getReviews = async () => {
-    const response = await axios.get(API_URL);
+const getReviews = async (params = {}) => {
+    //Construct query string from params
+    const queryString = new URLSearchParams(params).toString();
+    const url = queryString ? `${API_URL}?${queryString}` : API_URL;
+    const response = await axios.get(url);
     return response.data;
 };
 

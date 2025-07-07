@@ -95,6 +95,11 @@ function CreateReview() {
                         <option value="Anime">Anime</option>
                         <option value="Manga">Manga</option>
                         <option value="Light Novel">Light Novel</option>
+                        <option value="Movie">Movie</option>
+                        <option value="TV Show">TV Show</option>
+                        <option value="Book">Book</option>
+                        <option value="Other">Other</option>
+
                     </select>
                 </div>
                 <div className="form-group">
