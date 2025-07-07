@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = '/api/reviews/';
+const API_URL = 'https://media-review-backend-hutb.onrender.com/api/reviews/';
 
 //Get all reviews
 const getReviews = async (params = {}) => {
