@@ -100,8 +100,6 @@ function Home() {
     return (
         <div>
             <h1>All Reviews</h1>
-
-            {/* Search and Filter UI */}
             <div className="filters-container">
                 <div className="filters-header">
                     <button
@@ -128,6 +126,10 @@ function Home() {
                                 <option value="Anime">Anime</option>
                                 <option value="Manga">Manga</option>
                                 <option value="Light Novel">Light Novel</option>
+                                <option value="Movie">Movie</option>
+                                <option value="TV Show">TV Show</option>
+                                <option value="Book">Book</option>
+                                <option value="Other">Other</option>
                             </select>
                             <select className="form-control" value={ratingFilter} onChange={handleRatingChange}>
                                 <option value="">Min Rating</option>
