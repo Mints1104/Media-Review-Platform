@@ -11,7 +11,7 @@
 
 ## Overview
 
-The Media Review Platform is a full-stack web application designed to allow users to discover, review, and discuss various forms of media, including Games, Anime, Manga, and Light Novels. It features secure user authentication and comprehensive CRUD (Create, Read, Update, Delete) functionalities for reviews, enhanced by search and filtering capabilities.
+The Media Review Platform is a full-stack web application designed to allow users to discover, review, and discuss various forms of media, including Games, TV Shows, Films & more. It features secure user authentication and comprehensive CRUD (Create, Read, Update, Delete) functionalities for reviews, enhanced by search and filtering capabilities.
 
 This application demonstrates a robust understanding of modern web development principles, from database design and API development to responsive UI/UX and secure deployment.
 
